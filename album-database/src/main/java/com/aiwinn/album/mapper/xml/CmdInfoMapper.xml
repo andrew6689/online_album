@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiwinn.album.mapper.CmdInfoMapper">
+
+    <update id="updateByCmdIdSelective" parameterType="com.aiwinn.album.entity.CmdInfo">
+        update t_cmd_info
+        <set>
+            <if test="cmdType != null">
+                cmd_type = #{cmdType,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="assignTime != null">
+                assign_time = #{assignTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="assignCount != null">
+                assign_count = #{assignCount,jdbcType=INTEGER},
+            </if>
+            <if test="completeTime != null">
+                complete_time = #{completeTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="clusterId != null">
+                cluster_id = #{clusterId,jdbcType=VARCHAR},
+            </if>
+            <if test="infos != null">
+                infos = #{infos,jdbcType=VARCHAR},
+            </if>
+            <if test="featureIp != null">
+                feature_ip = #{featureIp,jdbcType=VARCHAR},
+            </if>
+            <if test="vip != null">
+                vip = #{vip,jdbcType=INTEGER},
+            </if>
+            <if test="errors != null">
+                errors = #{errors,jdbcType=VARCHAR},
+            </if>
+            <if test="pictures != null">
+                pictures = #{pictures,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where cmd_id = #{cmdId,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectByCmdId" parameterType="java.lang.String" resultType="com.aiwinn.album.entity.CmdInfo">
+        select * from t_cmd_info where cmd_id = #{cmdId} limit 1
+    </select>
+
+    <select id="selectSameCmdInfoByclusterId" parameterType="java.lang.String" resultType="com.aiwinn.album.entity.CmdInfo">
+        select * from t_cmd_info where cluster_id = #{clusterId}
+    </select>
+
+    <select id="selectVipClusterIdCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+  	    select count(1) from t_vip_cluster_id where cluster_id=#{clusterId}
+    </select>
+
+    <select id="selectVipClusterId2Count" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(1) from t_vip_cluster_id_2 where cluster_id=#{clusterId}
+    </select>
+
+</mapper>

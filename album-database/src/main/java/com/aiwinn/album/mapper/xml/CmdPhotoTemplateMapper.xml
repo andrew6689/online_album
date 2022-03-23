@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiwinn.album.mapper.CmdPhotoTemplateMapper">
+
+    <select id="selectCountByTemplateName" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(1) from t_cmd_photo_template where template_name = #{templateName}
+    </select>
+
+    <select id="selectByTemplateName" parameterType="java.lang.String" resultType="com.aiwinn.album.entity.CmdPhotoTemplate">
+        select * from t_cmd_photo_template where template_name = #{templateName}
+    </select>
+
+    <select id="selectByNameAndType" parameterType="java.lang.String" resultType="com.aiwinn.album.entity.CmdPhotoTemplate">
+        select * from t_cmd_photo_template where 1 = 1
+        <if test="templateName != null and templateName != ''">
+            and template_name = #{templateName}
+        </if>
+        <if test="templateType != null and templateType != ''">
+            and template_type = #{templateType}
+        </if>
+    </select>
+
+    <delete id="deleteByTemplateNames">
+        delete from t_cmd_photo_template where template_name in
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <update id="updateByTemplateName" parameterType="com.aiwinn.album.entity.CmdPhotoTemplate">
+        update t_cmd_photo_template
+        set template_type = #{record.templateType,jdbcType=VARCHAR},
+          font = #{record.font,jdbcType=VARCHAR},
+          font_color = #{record.fontColor,jdbcType=VARCHAR},
+          font_size = #{record.fontSize,jdbcType=VARCHAR},
+          background_music = #{record.backgroundMusic,jdbcType=VARCHAR},
+          background_color = #{record.backgroundColor,jdbcType=VARCHAR},
+          background_image = #{record.backgroundImage,jdbcType=VARCHAR},
+          theme_image_up = #{record.themeImageUp,jdbcType=VARCHAR},
+          theme_image_down = #{record.themeImageDown,jdbcType=VARCHAR},
+          min_content = #{record.minContent,jdbcType=INTEGER},
+          max_content = #{record.maxContent,jdbcType=INTEGER},
+          min_resolution = #{record.minResolution,jdbcType=INTEGER},
+          picture_interval = #{record.pictureInterval,jdbcType=INTEGER},
+          transitions = #{record.transitions,jdbcType=VARCHAR},
+          effects = #{record.effects,jdbcType=VARCHAR},
+          update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+          update_by = #{record.updateBy,jdbcType=VARCHAR}
+        where template_name = #{record.templateName,jdbcType=VARCHAR}
+    </update>
+</mapper>

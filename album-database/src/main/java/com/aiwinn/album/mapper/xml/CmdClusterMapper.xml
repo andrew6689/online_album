@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiwinn.album.mapper.CmdClusterMapper">
+
+    <select id="selectByResultId" parameterType="String" resultType="com.aiwinn.album.entity.CmdCluster">
+        select * from t_cmd_cluster where result_id = #{resultId} limit 1
+    </select>
+
+    <update id="updateGetTime" parameterType="com.aiwinn.album.entity.CmdCluster">
+        update t_cmd_cluster set get_time = #{getTime,jdbcType=TIMESTAMP} where result_id = #{resultId}
+    </update>
+
+</mapper>

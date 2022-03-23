@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiwinn.album.mapper.CmdSimilarInfoMapper">
+
+    <update id="updateByCmdIdSelective" parameterType="com.aiwinn.album.entity.CmdSimilarInfo">
+        update t_cmd_similar_info
+        <set>
+            <if test="cmdId != null">
+                cmd_id = #{cmdId,jdbcType=VARCHAR},
+            </if>
+            <if test="cmdType != null">
+                cmd_type = #{cmdType,jdbcType=VARCHAR},
+            </if>
+            <if test="clusterId != null">
+                cluster_id = #{clusterId,jdbcType=VARCHAR},
+            </if>
+            <if test="pictureMd5 != null">
+                picture_md5 = #{pictureMd5,jdbcType=VARCHAR},
+            </if>
+            <if test="pictureType != null">
+                picture_type = #{pictureType,jdbcType=VARCHAR},
+            </if>
+            <if test="pictureSize != null">
+                picture_size = #{pictureSize,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="completeTime != null">
+                complete_time = #{completeTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="errors != null">
+                errors = #{errors,jdbcType=VARCHAR},
+            </if>
+            <if test="width != null">
+                width = #{width,jdbcType=INTEGER},
+            </if>
+            <if test="height != null">
+                height = #{height,jdbcType=INTEGER},
+            </if>
+            <if test="infos != null">
+                infos = #{infos,jdbcType=VARCHAR},
+            </if>
+            <if test="similars != null">
+                similars = #{similars,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where cmd_id = #{cmdId,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectByCmdId" parameterType="java.lang.String" resultType="com.aiwinn.album.entity.CmdSimilarInfo">
+        select * from t_cmd_similar_info where cmd_id = #{cmdId} order by id desc limit 1
+    </select>
+
+</mapper>

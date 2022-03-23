@@ -1,0 +1,129 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.aiwinn.album</groupId>
+		<artifactId>online-album</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	<artifactId>album-gpl</artifactId>
+	<name>album-gpl</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.aiwinn.album</groupId>
+			<artifactId>album-database</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.aiwinn.album</groupId>
+			<artifactId>album-core</artifactId>
+			<version>${project.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>redis.clients</groupId>
+					<artifactId>jedis</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.csource</groupId>
+					<artifactId>fastdfs_client</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.alibaba</groupId>
+					<artifactId>fastjson</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>com.rabbitmq</groupId>
+			<artifactId>amqp-client</artifactId>
+			<version>3.0.4</version>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>${maven-jar-plugin.version}</version>
+				<configuration>
+					<excludes>
+						<exclude>*.**</exclude>
+						<exclude>*/*.xml</exclude>
+						<exclude>*/*.yml</exclude>
+					</excludes>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>lib/</classpathPrefix>
+							<useUniqueVersions>false</useUniqueVersions>
+							<mainClass>com.aiwinn.album.GplApplication</mainClass>
+						</manifest>
+						<manifestEntries>
+							<Class-Path>./resources/</Class-Path>
+						</manifestEntries>
+					</archive>
+					<outputDirectory>${project.build.directory}</outputDirectory>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>${maven-dependency-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/lib/</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>${maven-resources-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<resources>
+								<resource>
+									<directory>src/main/resources</directory>
+									<includes>
+									</includes>
+								</resource>
+							</resources>
+							<outputDirectory>${project.build.directory}/resources</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+</project>

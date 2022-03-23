@@ -1,0 +1,7 @@
+jarName: album-gpl-1.0.0
+
+server:
+  port: 18100
+  max-http-header-size: 4048576
+  tomcat:
+    max-http-form-post-size: 100MB

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiwinn.album.mapper.CmdFeatdbMapper">
+
+    <update id="createTableIfNot" parameterType="java.lang.String">
+        CREATE TABLE IF NOT EXISTS ${tab} like t_cmd_featdb
+    </update>
+
+    <select id="selectByFeatdbName" resultType="com.aiwinn.album.entity.CmdFeatdb">
+        select * from ${tab} where featdb_name = #{featdbName,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insertAndUpdate">
+        insert into ${tab} (featdb_name, featdb_path, face_count, create_time, update_time)
+        values (#{record.featdbName,jdbcType=VARCHAR}, #{record.featdbPath,jdbcType=VARCHAR}, #{record.faceCount,jdbcType=INTEGER},
+            #{record.createTime,jdbcType=TIMESTAMP}, #{record.updateTime,jdbcType=TIMESTAMP})
+        ON DUPLICATE KEY UPDATE
+            featdb_path = IFNULL(VALUES(featdb_path), featdb_path),
+            face_count = IFNULL(VALUES(face_count), face_count),
+            update_time = IFNULL(VALUES(update_time), update_time)
+    </insert>
+
+    <select id="selectIdByFeatdbName" parameterType="java.lang.String" resultType="java.lang.Long">
+        select id from ${tab} where featdb_name = #{featdbName,jdbcType=VARCHAR} limit 1
+    </select>
+
+</mapper>

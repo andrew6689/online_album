@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiwinn.album.mapper.CmdChildMapper">
+
+    <update id="createTableIfNot" parameterType="java.lang.String">
+	    create table if not exists ${childName} like t_cmd_child
+    </update>
+
+    <select id="selectChildCmdCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(1) from ${childName} where cmd_id = #{cmdId} and status in (1,0)
+    </select>
+
+    <select id="selectCountByCmdId" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(1) from ${childName} where cmd_id = #{cmdId}
+    </select>
+
+    <delete id="deleteByCmdId" parameterType="java.lang.String">
+        delete from ${childName} where cmd_id = #{cmdId}
+    </delete>
+
+    <update id="updateByCmdIdSelective" parameterType="com.aiwinn.album.entity.CmdChild">
+        update ${childName}
+        <set>
+            <if test="record.cmdType != null">
+                cmd_type = #{record.cmdType,jdbcType=VARCHAR},
+            </if>
+            <if test="record.clusterId != null">
+                cluster_id = #{record.clusterId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.status != null">
+                status = #{record.status,jdbcType=INTEGER},
+            </if>
+            <if test="record.sameTo != null">
+                same_to = #{record.sameTo,jdbcType=INTEGER},
+            </if>
+            <if test="record.error != null">
+                error = #{record.error,jdbcType=VARCHAR},
+            </if>
+            <if test="record.lastModifyTime != null">
+                last_modify_time = #{record.lastModifyTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where cmd_id = #{record.cmdId,jdbcType=VARCHAR} and md5 = #{record.md5,jdbcType=VARCHAR}
+    </update>
+
+    <insert id="insertList" parameterType="java.util.List">
+        insert into ${childName} (cmd_id, cmd_type, cluster_id, create_time, status, picture_id, md5, path,
+        same_to, error, infos, picture_type)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.cmdId,jdbcType=VARCHAR}, #{item.cmdType,jdbcType=VARCHAR}, #{item.clusterId,jdbcType=VARCHAR},
+            #{item.createTime,jdbcType=TIMESTAMP}, #{item.status,jdbcType=INTEGER}, #{item.pictureId,jdbcType=VARCHAR},
+            #{item.md5,jdbcType=VARCHAR}, #{item.path,jdbcType=VARCHAR}, #{item.sameTo,jdbcType=VARCHAR},
+            #{item.error,jdbcType=VARCHAR}, #{item.infos,jdbcType=VARCHAR}, #{item.pictureType,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+
+    <select id="selectByCmdIdAndMd5" resultType="com.aiwinn.album.entity.CmdChild">
+        select * from ${childName} where cmd_id = #{cmdId} and md5 = #{md5} limit 1
+    </select>
+
+</mapper>

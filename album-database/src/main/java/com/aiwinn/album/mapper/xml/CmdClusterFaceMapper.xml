@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiwinn.album.mapper.CmdClusterFaceMapper">
+
+    <update id="createTableIfNot" parameterType="java.lang.String">
+	    CREATE TABLE IF NOT EXISTS ${tab} like t_cmd_cluster_face
+    </update>
+
+    <select id="selectByClusterId" parameterType="java.lang.String" resultType="com.aiwinn.album.entity.CmdClusterFace">
+        select * from ${tab} where cluster_id = #{clusterId,jdbcType=VARCHAR}
+    </select>
+
+    <update id="updateByClusterIdLabelPictureId" parameterType="com.aiwinn.album.entity.CmdClusterFace">
+        update ${tab}
+        <set>
+            <if test="record.pictureMd5 != null">
+                picture_md5 = #{record.pictureMd5,jdbcType=VARCHAR},
+            </if>
+            <if test="record.facePositions != null">
+                face_positions = #{record.facePositions,jdbcType=VARCHAR},
+            </if>
+            <if test="record.isNormalFace != null">
+                is_normal_face = #{record.isNormalFace,jdbcType=INTEGER},
+            </if>
+            <if test="record.faceScore != null">
+                face_score = #{record.faceScore,jdbcType=INTEGER},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.searchTime != null">
+                search_time = #{record.searchTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.isMark != null">
+                is_mark = #{record.isMark,jdbcType=INTEGER},
+            </if>
+            <if test="record.featurePath != null">
+                feature_path = #{record.featurePath,jdbcType=VARCHAR},
+            </if>
+            <if test="record.node != null">
+                node = #{record.node,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where cluster_id = #{record.clusterId,jdbcType=VARCHAR} and label = #{record.label,jdbcType=VARCHAR} and
+        picture_id = #{record.pictureId,jdbcType=VARCHAR}
+    </update>
+
+    <insert id="insertList" parameterType="java.util.List">
+        insert into ${tab} (cluster_id, label, picture_id, picture_md5, face_positions,
+        is_normal_face, face_score, create_time, search_time, is_mark, feature_path, node)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.clusterId,jdbcType=VARCHAR}, #{item.label,jdbcType=VARCHAR}, #{item.pictureId,jdbcType=VARCHAR},
+            #{item.pictureMd5,jdbcType=VARCHAR}, #{item.facePositions,jdbcType=VARCHAR}, #{item.isNormalFace,jdbcType=INTEGER},
+            #{item.faceScore,jdbcType=INTEGER}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.searchTime,jdbcType=TIMESTAMP},
+            #{item.isMark,jdbcType=INTEGER}, #{item.featurePath,jdbcType=VARCHAR}, #{item.node,jdbcType=VARCHAR})
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        face_positions = IFNULL(VALUES(face_positions), face_positions),
+        search_time = IFNULL(VALUES(search_time), search_time),
+        feature_path = IFNULL(VALUES(feature_path), feature_path)
+    </insert>
+
+    <delete id="deleteByClusterIdAndLabel">
+        delete from ${tab} where cluster_id = #{clusterId,jdbcType=VARCHAR} and label = #{label,jdbcType=VARCHAR}
+    </delete>
+
+    <select id="selectIdByClusterId" parameterType="java.lang.String" resultType="java.lang.Long">
+        select id from ${tab} where cluster_id = #{clusterId,jdbcType=VARCHAR} limit 1
+    </select>
+
+</mapper>

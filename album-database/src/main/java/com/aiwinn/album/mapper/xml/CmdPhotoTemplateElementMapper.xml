@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiwinn.album.mapper.CmdPhotoTemplateElementMapper">
+
+    <select id="selectAll" resultType="com.aiwinn.album.entity.CmdPhotoTemplateElement">
+        select * from t_cmd_photo_template_element
+    </select>
+
+    <select id="selectByTypeAndElementId" resultType="com.aiwinn.album.entity.CmdPhotoTemplateElement">
+        select * from t_cmd_photo_template_element where type = #{type} and element_id = #{elementId}
+    </select>
+
+    <select id="deleteByTypeAndElementId">
+        delete from t_cmd_photo_template_element where type = #{type} and element_id = #{elementId}
+    </select>
+
+</mapper>

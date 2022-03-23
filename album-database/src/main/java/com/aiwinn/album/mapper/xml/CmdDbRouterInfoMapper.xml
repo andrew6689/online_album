@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiwinn.album.mapper.CmdDbRouterInfoMapper">
+
+    <insert id="insertSelective" parameterType="com.aiwinn.album.entity.CmdDbRouterInfo">
+        insert into ${tab}
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="record.id != null">
+                id,
+            </if>
+            <if test="record.clusterId != null">
+                cluster_id,
+            </if>
+            <if test="record.dbName != null">
+                db_name,
+            </if>
+            <if test="record.dbUrl != null">
+                db_url,
+            </if>
+            <if test="record.createTime != null">
+                create_time,
+            </if>
+            <if test="record.updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="record.id != null">
+                #{record.id,jdbcType=BIGINT},
+            </if>
+            <if test="record.clusterId != null">
+                #{record.clusterId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.dbName != null">
+                #{record.dbName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.dbUrl != null">
+                #{record.dbUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createTime != null">
+                #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.updateTime != null">
+                #{record.updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="createTableIfNot" parameterType="java.lang.String">
+	    CREATE TABLE IF NOT EXISTS ${tab} like t_cmd_db_router_info
+    </update>
+
+    <select id="selectByClusterId" resultType="com.aiwinn.album.entity.CmdDbRouterInfo">
+        select * from ${tab} where cluster_id = #{clusterId,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

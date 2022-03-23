@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiwinn.album.mapper.CmdAlgorithmMapper">
+
+    <select id="selectNewByType" parameterType="java.lang.String" resultType="com.aiwinn.album.entity.CmdAlgorithm">
+        select * from t_cmd_algorithm where type = #{type} order by version desc limit 1
+    </select>
+
+</mapper>

@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiwinn.album.mapper.CmdThumbnailResultMapper">
+
+    <update id="createTableIfNot" parameterType="java.lang.String">
+        CREATE TABLE IF NOT EXISTS `${tab}` like t_cmd_thumbnail_result
+    </update>
+
+    <insert id="insertSelective" parameterType="com.aiwinn.album.entity.CmdThumbnailResult">
+        insert into `${tab}`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="record.id != null">
+                id,
+            </if>
+            <if test="record.phyFileId != null">
+                phy_file_id,
+            </if>
+            <if test="record.contentId != null">
+                content_id,
+            </if>
+            <if test="record.contentSuffix != null">
+                content_suffix,
+            </if>
+            <if test="record.createTime != null">
+                create_time,
+            </if>
+            <if test="record.status != null">
+                status,
+            </if>
+            <if test="record.handleTime != null">
+                handle_time,
+            </if>
+            <if test="record.completeTime != null">
+                complete_time,
+            </if>
+            <if test="record.code != null">
+                code,
+            </if>
+            <if test="record.errors != null">
+                errors,
+            </if>
+            <if test="record.width != null">
+                width,
+            </if>
+            <if test="record.height != null">
+                height,
+            </if>
+            <if test="record.shootTime != null">
+                shoot_time,
+            </if>
+            <if test="record.longitude != null">
+                longitude,
+            </if>
+            <if test="record.latitude != null">
+                latitude,
+            </if>
+            <if test="record.thumbnail != null">
+                thumbnail,
+            </if>
+            <if test="record.featureIp != null">
+                feature_ip,
+            </if>
+            <if test="record.searchTime != null">
+                search_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="record.id != null">
+                #{record.id,jdbcType=BIGINT},
+            </if>
+            <if test="record.phyFileId != null">
+                #{record.phyFileId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.contentId != null">
+                #{record.contentId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.contentSuffix != null">
+                #{record.contentSuffix,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createTime != null">
+                #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.status != null">
+                #{record.status,jdbcType=INTEGER},
+            </if>
+            <if test="record.handleTime != null">
+                #{record.handleTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.completeTime != null">
+                #{record.completeTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.code != null">
+                #{record.code,jdbcType=INTEGER},
+            </if>
+            <if test="record.errors != null">
+                #{record.errors,jdbcType=VARCHAR},
+            </if>
+            <if test="record.width != null">
+                #{record.width,jdbcType=INTEGER},
+            </if>
+            <if test="record.height != null">
+                #{record.height,jdbcType=INTEGER},
+            </if>
+            <if test="record.shootTime != null">
+                #{record.shootTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.longitude != null">
+                #{record.longitude,jdbcType=VARCHAR},
+            </if>
+            <if test="record.latitude != null">
+                #{record.latitude,jdbcType=VARCHAR},
+            </if>
+            <if test="record.thumbnail != null">
+                #{record.thumbnail,jdbcType=VARCHAR},
+            </if>
+            <if test="record.featureIp != null">
+                #{record.featureIp,jdbcType=VARCHAR},
+            </if>
+            <if test="record.searchTime != null">
+                #{record.searchTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectByPhyFileId" resultType="com.aiwinn.album.entity.CmdThumbnailResult">
+        select * from `${tab}` where phy_file_id = #{phyFileId,jdbcType=VARCHAR} limit 1
+    </select>
+
+    <update id="updateByPhyFileIdSelective" parameterType="com.aiwinn.album.entity.CmdThumbnailResult">
+        update `${tab}`
+        <set>
+            <if test="record.contentId != null">
+                content_id = #{record.contentId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.contentSuffix != null">
+                content_suffix = #{record.contentSuffix,jdbcType=VARCHAR},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.status != null">
+                status = #{record.status,jdbcType=INTEGER},
+            </if>
+            <if test="record.handleTime != null">
+                handle_time = #{record.handleTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.completeTime != null">
+                complete_time = #{record.completeTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.code != null">
+                code = #{record.code,jdbcType=INTEGER},
+            </if>
+            <if test="record.errors != null">
+                errors = #{record.errors,jdbcType=VARCHAR},
+            </if>
+            <if test="record.width != null">
+                width = #{record.width,jdbcType=INTEGER},
+            </if>
+            <if test="record.height != null">
+                height = #{record.height,jdbcType=INTEGER},
+            </if>
+            <if test="record.shootTime != null">
+                shoot_time = #{record.shootTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.longitude != null">
+                longitude = #{record.longitude,jdbcType=VARCHAR},
+            </if>
+            <if test="record.latitude != null">
+                latitude = #{record.latitude,jdbcType=VARCHAR},
+            </if>
+            <if test="record.thumbnail != null">
+                thumbnail = #{record.thumbnail,jdbcType=VARCHAR},
+            </if>
+            <if test="record.featureIp != null">
+                feature_ip = #{record.featureIp,jdbcType=VARCHAR},
+            </if>
+            <if test="record.searchTime != null">
+                search_time = #{record.searchTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where phy_file_id = #{record.phyFileId,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

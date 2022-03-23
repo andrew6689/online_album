@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiwinn.album.mapper.CmdThumbnailLimitMapper">
+
+    <select id="selectByDate" parameterType="java.lang.String" resultType="com.aiwinn.album.entity.CmdThumbnailLimit">
+        select * from t_cmd_thumbnail_limit where which_date = #{whichDate} order by id desc limit 1
+    </select>
+
+    <update id="updatePictureLimitByDate">
+        update t_cmd_thumbnail_limit set picture_limit = picture_limit + #{count} where which_date = #{date}
+    </update>
+
+    <update id="updatePictureNumByDate">
+        update t_cmd_thumbnail_limit set picture_num = picture_num + #{count} where which_date = #{date}
+    </update>
+
+
+</mapper>

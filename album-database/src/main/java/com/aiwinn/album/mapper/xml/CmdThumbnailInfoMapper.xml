@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiwinn.album.mapper.CmdThumbnailInfoMapper">
+
+    <update id="createTableIfNot" parameterType="java.lang.String">
+        CREATE TABLE IF NOT EXISTS `${tab}` like t_cmd_thumbnail_info
+    </update>
+
+    <insert id="insertSelective" parameterType="com.aiwinn.album.entity.CmdThumbnailInfo">
+        insert into `${tab}`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="record.id != null">
+                id,
+            </if>
+            <if test="record.cmdId != null">
+                cmd_id,
+            </if>
+            <if test="record.traceId != null">
+                trace_id,
+            </if>
+            <if test="record.eventTime != null">
+                event_time,
+            </if>
+            <if test="record.ndUserId != null">
+                nd_user_id,
+            </if>
+            <if test="record.ownNdUserId != null">
+                own_nd_user_id,
+            </if>
+            <if test="record.phyFileId != null">
+                phy_file_id,
+            </if>
+            <if test="record.contentSuffix != null">
+                content_suffix,
+            </if>
+            <if test="record.contentId != null">
+                content_id,
+            </if>
+            <if test="record.downloadUrl != null">
+                download_url,
+            </if>
+            <if test="record.uploadUrl != null">
+                upload_url,
+            </if>
+            <if test="record.userSiteId != null">
+                user_site_id,
+            </if>
+            <if test="record.envId != null">
+                env_id,
+            </if>
+            <if test="record.vip != null">
+                vip,
+            </if>
+            <if test="record.extractThumbnail != null">
+                extract_thumbnail,
+            </if>
+            <if test="record.extractShottime != null">
+                extract_shottime,
+            </if>
+            <if test="record.extractLoc != null">
+                extract_loc,
+            </if>
+            <if test="record.createTime != null">
+                create_time,
+            </if>
+            <if test="record.status != null">
+                status,
+            </if>
+            <if test="record.handleTime != null">
+                handle_time,
+            </if>
+            <if test="record.startTime != null">
+                start_time,
+            </if>
+            <if test="record.tag != null">
+                tag,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="record.id != null">
+                #{record.id,jdbcType=BIGINT},
+            </if>
+            <if test="record.cmdId != null">
+                #{record.cmdId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.traceId != null">
+                #{record.traceId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.eventTime != null">
+                #{record.eventTime,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ndUserId != null">
+                #{record.ndUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ownNdUserId != null">
+                #{record.ownNdUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.phyFileId != null">
+                #{record.phyFileId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.contentSuffix != null">
+                #{record.contentSuffix,jdbcType=VARCHAR},
+            </if>
+            <if test="record.contentId != null">
+                #{record.contentId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.downloadUrl != null">
+                #{record.downloadUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="record.uploadUrl != null">
+                #{record.uploadUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="record.userSiteId != null">
+                #{record.userSiteId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.envId != null">
+                #{record.envId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.vip != null">
+                #{record.vip,jdbcType=INTEGER},
+            </if>
+            <if test="record.extractThumbnail != null">
+                #{record.extractThumbnail,jdbcType=VARCHAR},
+            </if>
+            <if test="record.extractShottime != null">
+                #{record.extractShottime,jdbcType=INTEGER},
+            </if>
+            <if test="record.extractLoc != null">
+                #{record.extractLoc,jdbcType=INTEGER},
+            </if>
+            <if test="record.createTime != null">
+                #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.status != null">
+                #{record.status,jdbcType=INTEGER},
+            </if>
+            <if test="record.handleTime != null">
+                #{record.handleTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.startTime != null">
+                #{record.startTime,jdbcType=BIGINT},
+            </if>
+            <if test="record.tag != null">
+                #{record.tag,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectByCmdId" resultType="com.aiwinn.album.entity.CmdThumbnailInfo">
+        select * from `${tab}` where cmd_id = #{cmdId,jdbcType=VARCHAR} limit 1
+    </select>
+
+    <update id="updateByCmdIdSelective" parameterType="com.aiwinn.album.entity.CmdThumbnailInfo">
+        update `${tab}`
+        <set>
+            <if test="record.traceId != null">
+                trace_id = #{record.traceId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.eventTime != null">
+                event_time = #{record.eventTime,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ndUserId != null">
+                nd_user_id = #{record.ndUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.ownNdUserId != null">
+                own_nd_user_id = #{record.ownNdUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.phyFileId != null">
+                phy_file_id = #{record.phyFileId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.contentSuffix != null">
+                content_suffix = #{record.contentSuffix,jdbcType=VARCHAR},
+            </if>
+            <if test="record.contentId != null">
+                content_id = #{record.contentId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.downloadUrl != null">
+                download_url = #{record.downloadUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="record.uploadUrl != null">
+                upload_url = #{record.uploadUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="record.userSiteId != null">
+                user_site_id = #{record.userSiteId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.envId != null">
+                env_id = #{record.envId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.vip != null">
+                vip = #{record.vip,jdbcType=INTEGER},
+            </if>
+            <if test="record.extractThumbnail != null">
+                extract_thumbnail = #{record.extractThumbnail,jdbcType=VARCHAR},
+            </if>
+            <if test="record.extractShottime != null">
+                extract_shottime = #{record.extractShottime,jdbcType=INTEGER},
+            </if>
+            <if test="record.extractLoc != null">
+                extract_loc = #{record.extractLoc,jdbcType=INTEGER},
+            </if>
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.status != null">
+                status = #{record.status,jdbcType=INTEGER},
+            </if>
+            <if test="record.handleTime != null">
+                handle_time = #{record.handleTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.startTime != null">
+                start_time = #{record.startTime,jdbcType=BIGINT},
+            </if>
+            <if test="record.tag != null">
+                tag = #{record.tag,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where cmd_id = #{record.cmdId,jdbcType=VARCHAR}
+    </update>
+
+    <select id="deleteByCmdId">
+        delete from `${tab}` where cmd_id = #{cmdId,jdbcType=VARCHAR}
+    </select>
+
+
+</mapper>

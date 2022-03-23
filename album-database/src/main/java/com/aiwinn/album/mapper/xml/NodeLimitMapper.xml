@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiwinn.album.mapper.NodeLimitMapper">
+
+    <select id="selectByDate" parameterType="java.lang.String" resultType="com.aiwinn.album.entity.NodeLimit">
+        select * from t_node_limit where which_date = #{whichDate} order by id desc limit 1
+    </select>
+
+    <update id="updatePeopleLimitById">
+        update t_node_limit set picture_limit = picture_limit + #{count}, people_picture_limit = people_picture_limit + #{count} where id = #{id}
+    </update>
+
+    <update id="updateThingLimitById">
+        update t_node_limit set picture_limit = picture_limit + #{count}, thing_picture_limit = thing_picture_limit + #{count} where id = #{id}
+    </update>
+
+    <update id="updateRepetitiveLimitById">
+        update t_node_limit set picture_limit = picture_limit + #{count}, repetitive_picture_limit = repetitive_picture_limit + #{count} where id = #{id}
+    </update>
+
+    <update id="updatePeopleNumByDate">
+        update t_node_limit set feature_num = feature_num + #{count}, people_num = people_num + #{count} where which_date = #{date}
+    </update>
+
+    <update id="updateThingNumByDate">
+        update t_node_limit set feature_num = feature_num + #{count}, thing_num = thing_num + #{count} where which_date = #{date}
+    </update>
+
+    <update id="updateRepetitiveNumByDate">
+        update t_node_limit set feature_num = feature_num + #{count}, repetitive_num = repetitive_num + #{count} where which_date = #{date}
+    </update>
+
+    <update id="updateVideoPeopleLimitById">
+        update t_node_limit set video_limit = video_limit + #{count}, video_people_limit = video_people_limit + #{count} where id = #{id}
+    </update>
+
+    <update id="updateVideoThingLimitById">
+        update t_node_limit set video_limit = video_limit + #{count}, video_thing_limit = video_thing_limit + #{count} where id = #{id}
+    </update>
+
+    <update id="updateVideoPeopleNumByDate">
+        update t_node_limit set video_num = video_num + #{count}, video_people_num = video_people_num + #{count} where which_date = #{date}
+    </update>
+
+    <update id="updateVideoThingNumByDate">
+        update t_node_limit set video_num = video_num + #{count}, video_thing_num = video_thing_num + #{count} where which_date = #{date}
+    </update>
+
+    <update id="updateLiveLimitById">
+        update t_node_limit set live_limit = live_limit + #{count} where id = #{id}
+    </update>
+
+    <update id="updateLiveNumByDate">
+        update t_node_limit set live_num = live_num + #{count} where which_date = #{date}
+    </update>
+
+</mapper>

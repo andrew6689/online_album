@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiwinn.album.mapper.CmdThingMarkMapper">
+
+    <update id="createTableIfNot" parameterType="java.lang.String">
+        CREATE TABLE IF NOT EXISTS ${tab} like t_cmd_thing_mark;
+    </update>
+
+    <insert id="insertExcludeList" parameterType="java.util.List">
+        insert into ${tab} (cluster_id, picture_id, picture_md5, exclude_label, exclude_time)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.clusterId,jdbcType=VARCHAR}, #{item.pictureId,jdbcType=VARCHAR},
+            #{item.pictureMd5,jdbcType=VARCHAR}, #{item.excludeLabel,jdbcType=VARCHAR}, #{item.excludeTime,jdbcType=TIMESTAMP})
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        exclude_time = now()
+    </insert>
+
+    <insert id="insertMarkList" parameterType="java.util.List">
+        insert into ${tab} (cluster_id, picture_id, picture_md5, mark_label, mark_time)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.clusterId,jdbcType=VARCHAR}, #{item.pictureId,jdbcType=VARCHAR},
+            #{item.pictureMd5,jdbcType=VARCHAR}, #{item.markLabel,jdbcType=VARCHAR}, #{item.markTime,jdbcType=TIMESTAMP})
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        mark_time = now()
+    </insert>
+
+    <select id="selectByClusterId" parameterType="java.lang.String" resultType="com.aiwinn.album.entity.CmdThingMark">
+        select * from ${tab} where cluster_id = #{clusterId,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiwinn.album.mapper.CmdLimitMapper">
+
+    <select id="selectByDate" parameterType="java.lang.String" resultType="com.aiwinn.album.entity.CmdLimit">
+        select * from t_cmd_limit where which_date = #{whichDate} order by id desc limit 1
+    </select>
+
+    <update id="updatePeopleLimitById">
+        update t_cmd_limit set picture_limit = picture_limit + #{count}, people_picture_limit = people_picture_limit + #{count} where id = #{id}
+    </update>
+
+    <update id="updateThingLimitById">
+        update t_cmd_limit set picture_limit = picture_limit + #{count}, thing_picture_limit = thing_picture_limit + #{count} where id = #{id}
+    </update>
+
+    <update id="updateRepetitiveLimitById">
+        update t_cmd_limit set picture_limit = picture_limit + #{count}, repetitive_picture_limit = repetitive_picture_limit + #{count} where id = #{id}
+    </update>
+
+    <update id="updatePeopleNumByDate">
+        update t_cmd_limit set feature_num = feature_num + #{count}, people_num = people_num + #{count} where which_date = #{date}
+    </update>
+
+    <update id="updateThingNumByDate">
+        update t_cmd_limit set feature_num = feature_num + #{count}, thing_num = thing_num + #{count} where which_date = #{date}
+    </update>
+
+    <update id="updateRepetitiveNumByDate">
+        update t_cmd_limit set feature_num = feature_num + #{count}, repetitive_num = repetitive_num + #{count} where which_date = #{date}
+    </update>
+
+    <update id="updateRecallLimitById">
+        update t_cmd_limit set photo_limit = photo_limit + #{count}, recall_limit = recall_limit + #{count} where id = #{id}
+    </update>
+
+    <update id="updateRecallNumByDate">
+        update t_cmd_limit set photo_num = photo_num + #{count}, recall_num = recall_num + #{count} where which_date = #{date}
+    </update>
+
+    <update id="updateRecallSelectByDate">
+        update t_cmd_limit set photo_select = photo_select + #{count}, recall_select = recall_select + #{count} where which_date = #{date}
+    </update>
+
+    <update id="updateStoryLimitById">
+        update t_cmd_limit set photo_limit = photo_limit + #{count}, story_limit = story_limit + #{count} where id = #{id}
+    </update>
+
+    <update id="updateStoryNumByDate">
+        update t_cmd_limit set photo_num = photo_num + #{count}, story_num = story_num + #{count} where which_date = #{date}
+    </update>
+
+    <update id="updateStorySelectByDate">
+        update t_cmd_limit set photo_select = photo_select + #{count}, story_select = story_select + #{count} where which_date = #{date}
+    </update>
+
+    <update id="updateUserLimitById">
+        update t_cmd_limit set photo_limit = photo_limit + #{count}, user_limit = user_limit + #{count} where id = #{id}
+    </update>
+
+    <update id="updateUserNumByDate">
+        update t_cmd_limit set photo_num = photo_num + #{count}, user_num = user_num + #{count} where which_date = #{date}
+    </update>
+
+    <update id="updateLiveLimitById">
+        update t_cmd_limit set live_limit = live_limit + #{count} where id = #{id}
+    </update>
+
+    <update id="updateLiveNumByDate">
+        update t_cmd_limit set live_num = live_num + #{count} where which_date = #{date}
+    </update>
+
+</mapper>

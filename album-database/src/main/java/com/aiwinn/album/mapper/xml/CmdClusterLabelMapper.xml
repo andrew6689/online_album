@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiwinn.album.mapper.CmdClusterLabelMapper">
+
+    <update id="createTableIfNot" parameterType="java.lang.String">
+	    CREATE TABLE IF NOT EXISTS ${tab} like t_cmd_cluster_label
+    </update>
+
+    <select id="selectByClusterId" parameterType="java.lang.String" resultType="com.aiwinn.album.entity.CmdClusterLabel">
+        select * from ${tab} where cluster_id = #{clusterId,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insertList" parameterType="java.util.List">
+        insert into ${tab} (cluster_id, label, face_count, create_time, thumbnail_id,
+        thumbnail_md5, thumbnail_path, thumbnail_positions, thumbnail_time)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.clusterId,jdbcType=VARCHAR}, #{item.label,jdbcType=VARCHAR}, #{item.faceCount,jdbcType=INTEGER},
+            #{item.createTime,jdbcType=TIMESTAMP}, #{item.thumbnailId,jdbcType=VARCHAR}, #{item.thumbnailMd5,jdbcType=VARCHAR},
+            #{item.thumbnailPath,jdbcType=VARCHAR}, #{item.thumbnailPositions,jdbcType=VARCHAR},
+            #{item.thumbnailTime,jdbcType=TIMESTAMP})
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        face_count = IFNULL(VALUES(face_count), face_count),
+        thumbnail_id = IFNULL(VALUES(thumbnail_id), thumbnail_id),
+        thumbnail_md5 = IFNULL(VALUES(thumbnail_md5), thumbnail_md5),
+        thumbnail_path = IFNULL(VALUES(thumbnail_path), thumbnail_path),
+        thumbnail_positions = IFNULL(VALUES(thumbnail_positions), thumbnail_positions),
+        thumbnail_time = IFNULL(VALUES(thumbnail_time), thumbnail_time)
+    </insert>
+
+    <delete id="deleteByClusterIdAndLabel">
+        delete from ${tab} where cluster_id = #{clusterId,jdbcType=VARCHAR} and label = #{label,jdbcType=VARCHAR}
+    </delete>
+
+    <select id="selectIdByClusterId" parameterType="java.lang.String" resultType="java.lang.Long">
+        select id from ${tab} where cluster_id = #{clusterId,jdbcType=VARCHAR} limit 1
+    </select>
+
+</mapper>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiwinn.album.mapper.CmdNoticeMapper">
+
+    <select id="selectByCmdId" parameterType="java.lang.String" resultType="com.aiwinn.album.entity.CmdNotice">
+        select * from t_cmd_notice where cmd_id = #{cmdId} limit 1
+    </select>
+
+    <delete id="deleteByCmdId" parameterType="java.lang.String">
+        delete from t_cmd_notice where cmd_id = #{cmdId}
+    </delete>
+
+</mapper>

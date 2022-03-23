@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiwinn.album.mapper.CmdFaceFailMapper">
+
+    <select id="selectByClusterId" resultType="com.aiwinn.album.entity.CmdFaceFail">
+        select * from t_cmd_face_fail where cluster_id = #{clusterId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByClusterIdAndMd5AndPosition" parameterType="java.lang.String" resultType="com.aiwinn.album.entity.CmdFaceFail">
+        select * from t_cmd_face_fail where cluster_id = #{clusterId,jdbcType=VARCHAR}
+        and picture_md5 = #{pictureMd5,jdbcType=VARCHAR} and face_position = #{facePosition,jdbcType=VARCHAR} limit 1
+    </select>
+
+    <delete id="deleteByClusterId" parameterType="java.lang.String">
+        delete from t_cmd_face_fail where cluster_id = #{clusterId,jdbcType=VARCHAR}
+    </delete>
+
+</mapper>

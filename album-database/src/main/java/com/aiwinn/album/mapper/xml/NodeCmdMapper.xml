@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiwinn.album.mapper.NodeCmdMapper">
+
+    <update id="updateFeatureIp">
+  	    update t_node_cmd set feature_ip=CONCAT(feature_ip, #{featureIp}) where cmd_id = #{cmdId} order by id desc limit 1
+    </update>
+
+    <update id="updateFeatureNum">
+  	    update t_node_cmd set feature_num=feature_num + #{featureNum} where cmd_id = #{cmdId} order by id desc limit 1
+    </update>
+
+    <select id="selectFeatureNumByCmdId" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select feature_num from t_node_cmd where cmd_id = #{cmdId} order by id desc limit 1
+    </select>
+
+    <select id="selectByCmdId" parameterType="java.lang.String" resultType="com.aiwinn.album.entity.NodeCmd">
+        select * from t_node_cmd where cmd_id = #{cmdId} order by id desc limit 1
+    </select>
+
+    <update id="updateStatusByCmdId">
+  	    update t_node_cmd set status = #{status} where cmd_id = #{cmdId} order by id desc limit 1
+    </update>
+
+</mapper>
